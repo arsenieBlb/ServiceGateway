@@ -1,0 +1,8 @@
+/bin/
+*.exe
+/demo/results-*/
+/demo/results/local/
+/demo/results/ci/
+.env
+.env.*
+!.env.example

@@ -1,0 +1,13 @@
+{
+  "listen": "127.0.0.1:8080",
+  "admin_listen": "127.0.0.1:9090",
+  "routes": [{"id": "api", "prefix": "/api", "backends": ["a", "b"]}],
+  "upstreams": [
+    {"id": "a", "url": "http://127.0.0.1:9001", "health_path": "/healthz"},
+    {"id": "b", "url": "http://127.0.0.1:9002", "health_path": "/healthz"}
+  ],
+  "health": {"interval": "1s", "timeout": "500ms", "success_threshold": 2, "failure_threshold": 2},
+  "limits": {"active": 32, "waiting": 64, "wait": "250ms", "body_bytes": 1048576, "max_header_bytes": 16384},
+  "rate": {"refill": 100, "burst": 200, "max_entries": 10000, "idle_ttl": "5m"},
+  "timeouts": {"read_header": "2s", "read_body": "5s", "idle": "30s", "connect": "1s", "response_header": "2s", "request": "5s", "shutdown": "5s", "max_conns_per_host": 64}
+}

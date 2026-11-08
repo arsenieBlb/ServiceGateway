@@ -1,0 +1,25 @@
+go version go1.27.3 linux/amd64
+?   	service-gateway/cmd/backend	[no test files]
+?   	service-gateway/cmd/demo	[no test files]
+?   	service-gateway/cmd/gateway	[no test files]
+ok  	service-gateway/internal/admission	0.041s
+ok  	service-gateway/internal/config	0.011s
+ok  	service-gateway/internal/gateway	5.429s
+ok  	service-gateway/internal/health	0.216s
+ok  	service-gateway/internal/metrics	0.007s
+?   	service-gateway/internal/proxy	[no test files]
+ok  	service-gateway/internal/ratelimit	0.005s
+ok  	service-gateway/internal/routing	0.005s
+ok  	service-gateway/internal/upstreams	0.006s
+?   	service-gateway/cmd/backend	[no test files]
+?   	service-gateway/cmd/demo	[no test files]
+?   	service-gateway/cmd/gateway	[no test files]
+ok  	service-gateway/internal/admission	1.146s
+ok  	service-gateway/internal/config	1.086s
+ok  	service-gateway/internal/gateway	17.365s
+ok  	service-gateway/internal/health	1.656s
+ok  	service-gateway/internal/metrics	1.070s
+?   	service-gateway/internal/proxy	[no test files]
+ok  	service-gateway/internal/ratelimit	1.022s
+ok  	service-gateway/internal/routing	1.016s
+ok  	service-gateway/internal/upstreams	1.082s

@@ -1,0 +1,30 @@
+# Material decisions
+
+| Decision | Choice and reason |
+| --- | --- |
+| Scope and dependencies | One independent Go module named `service-gateway`, standard library only. No dependency on another portfolio repository. |
+| Toolchain | Go 1.27.3 selected from the official stable download listing and recorded in `go.mod`. Actual verification platform and commands belong in `completion.md`; the CI file alone is not executed CI evidence. |
+| HTTP implementation | Standard `ReverseProxy` with `Rewrite` and one shared bounded `http.Transport`. HTTP parsing, connection reuse, hop-by-hop handling and streaming stay with the standard library. |
+| Configuration | JSON with defaults, strict unknown-field rejection and validation before any listener starts. IDs and route counts are bounded. No runtime reload. |
+| Listeners | Loopback only for traffic and separate administration. External exposure is not enabled; there is no implicit TLS termination or trusted-proxy configuration. |
+| Route semantics | Longest segment-boundary prefix over the decoded URL path; original path, escaped representation and query are forwarded without rewriting. Duplicate prefixes are invalid rather than relying on configuration order. |
+| Backend authority | The configuration alone chooses HTTP/HTTPS destinations. Outbound Host is the selected upstream authority. Ambient HTTP proxy environment settings do not control upstream traffic. Incoming absolute URLs cannot select another host. |
+| Forwarded headers and client identity | Remove incoming `Forwarded` and every `X-Forwarded-*`; generate forwarding information afresh. Socket peer IP is the client identity, ignoring spoofed forwarding assertions. No trusted-proxy mode is needed for this local release. |
+| Health and selection | Explicit unknown state, thresholded healthy/unhealthy transitions, sequential per-backend probes and synchronized round robin. Unknown/unhealthy endpoints keep being checked. No promise of zero failures during detection. |
+| Admission | Separate active and waiting capacities, deadline and cancellation. Queue waiters use their existing handlers. Stop immediately rejects new work and wakes waiters. Limits protect upstream work and waiting admission rather than all process resources. |
+| Request bodies | After admission, read at most configured body limit plus one byte, ignoring declared length for allocation. Reject oversized payloads before any backend request. Responses remain streamed. |
+| Rate identity table | Per-process token buckets, bounded entries and idle expiry using an injected clock in tests. New identities are rejected when full, with a table-full counter and estimated retry time; active quotas are not evicted. |
+| Middleware precedence | Stopping, protocol, route, rate, healthy availability, admission, healthy reselection, bounded body, proxy. This provides a deterministic answer when conditions overlap. |
+| Error accounting | Gateway JSON errors have fixed codes and generated IDs. Valid backend statuses are separate from connection/deadline/partial failures. A partial stream is aborted and counted; an unrelated JSON error is never appended. |
+| Request IDs and logging | Replace arbitrary client identifiers with 128 random bits encoded as 32 hex characters. Log fixed classifications/configured IDs and timings, excluding secrets, arbitrary paths and bodies. |
+| Retries | No application retry loop. Clear request `GetBody` and restore a non-replayable body for unsafe methods even when empty (the standard reverse proxy otherwise clears it). Forwarded client idempotency headers do not enable unsafe replay. Safe bodyless requests may retain the transport's narrow network retry behavior. State-changing ambiguous failures receive explicit non-replay coverage. |
+| Early body rejection | Gateway errors expire unread-body read deadlines and close the HTTP/1 connection so slow incoming data cannot defer a prompt rejection. Overall writes have exactly 100ms additional deadline allowance for an error response; already-started responses abort on stream failure. |
+| Shutdown | Stop admissions and health checking, wake the queue, drain active handlers to a grace deadline, cancel remaining work, join owned workers and close idle upstream connections. Graceful lifecycle tests remain separate from abrupt process-kill demo scenarios. |
+| Instrumentation | A JSON administration endpoint with bounded configured-ID/fixed-class dimensions is sufficient. No Prometheus exporter or dashboard is required by the requested scope. |
+| Measurements | Local direct and gateway workloads use matching rate/duration/handler, warm-up and repetitions. Preserve individual operations, status/error counts, latencies, health transitions, cumulative resource maxima and environment/source metadata. Throughput is observed rather than an invented acceptance target. |
+| Docker | Docker is available locally, so a Compose convenience runs the same real-process demo within one Linux container and publishes no ports. Independently runnable Go commands remain the primary setup. |
+| TLS upstreams | HTTP backends are used in the local process demo. Local HTTPS integration tests explicitly trust their test certificate using a root certificate pool, while retaining certificate verification. No `InsecureSkipVerify` shortcut is used. |
+| Unsupported protocols | CONNECT and requested protocol upgrades receive explicit 501. Backend 101 is rejected as a gateway protocol failure. Long-lived SSE, WebSockets and large uploads need a separate tested extension. |
+| Deferred work | Kubernetes, dynamic discovery, distributed limits, retries beyond the documented transport, background reload, custom HTTP/TLS, admin UI, persistent request queues and durable delivery remain deferred. |
+
+References used to verify the library contracts: [ReverseProxy](https://pkg.go.dev/net/http/httputil#ReverseProxy), [HTTP server and transport](https://pkg.go.dev/net/http), [race detector](https://go.dev/doc/articles/race_detector), and [stable downloads](https://go.dev/dl/). The implementation makes no internship-role or production-scale claim.

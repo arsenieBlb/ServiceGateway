@@ -1,0 +1,9 @@
+services:
+  demo:
+    network_mode: none
+    build:
+      context: .
+      dockerfile: demo/Dockerfile
+    command: ["-out", "/results"]
+    volumes:
+      - ./demo/results/compose:/results

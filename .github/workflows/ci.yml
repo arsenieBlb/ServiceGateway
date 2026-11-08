@@ -1,0 +1,24 @@
+name: gateway checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.27.3'
+      - run: go vet ./...
+      - run: go test -race -count=1 ./...
+        env:
+          CGO_ENABLED: '1'
+      - run: go build -o bin/gateway ./cmd/gateway
+      - run: go build -o bin/backend ./cmd/backend
+      - run: go run ./cmd/demo -duration 300ms -warmup 100ms -repetitions 1 -out demo/results/ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: local-demo-evidence
+          path: demo/results/ci

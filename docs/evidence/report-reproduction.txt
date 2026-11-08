@@ -1,0 +1,10 @@
+Executed on Windows with the final Go 1.27.3 cross-built demo.exe:
+.\bin\demo.exe -report-from demo/results/verified/raw.json -out demo/results/recalculated
+
+Original report SHA256:
+8C74C6638E3720B8541EFACFCB12295EED27431E0E9063E3F3B49F4E39833629
+Regenerated report SHA256:
+8C74C6638E3720B8541EFACFCB12295EED27431E0E9063E3F3B49F4E39833629
+
+Byte-identical report regeneration: PASS
+This independently regenerates the Linux report on Windows using saved operations.

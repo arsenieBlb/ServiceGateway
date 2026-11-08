@@ -1,0 +1,12 @@
+?   	service-gateway/cmd/backend	[no test files]
+?   	service-gateway/cmd/demo	[no test files]
+?   	service-gateway/cmd/gateway	[no test files]
+ok  	service-gateway/internal/admission	0.044s
+ok  	service-gateway/internal/config	0.028s
+ok  	service-gateway/internal/gateway	5.460s
+ok  	service-gateway/internal/health	0.228s
+ok  	service-gateway/internal/metrics	0.009s
+?   	service-gateway/internal/proxy	[no test files]
+ok  	service-gateway/internal/ratelimit	0.007s
+ok  	service-gateway/internal/routing	0.007s
+ok  	service-gateway/internal/upstreams	0.009s

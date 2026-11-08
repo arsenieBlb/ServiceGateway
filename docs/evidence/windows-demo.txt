@@ -1,0 +1,19 @@
+measuring warmup-direct-1
+measuring direct-1
+measuring warmup-gateway-1
+measuring gateway-1
+measuring warmup-direct-2
+measuring direct-2
+measuring warmup-gateway-2
+measuring gateway-2
+measuring warmup-direct-3
+measuring direct-3
+measuring warmup-gateway-3
+measuring gateway-3
+measuring backend-a-detection
+measuring backend-a-down
+measuring recovered
+measuring all-down
+measuring slow-deadline
+measuring overload
+Saved 1560 requests, 1322 metric snapshots to demo/results/windows

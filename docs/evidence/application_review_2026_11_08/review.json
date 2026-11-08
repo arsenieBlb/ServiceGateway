@@ -1,0 +1,130 @@
+{
+  "project": "ServiceGateway",
+  "review_date": "2026-11-08",
+  "all_passed": true,
+  "live_model_called": false,
+  "source": [
+    {
+      "path": "cmd/backend/main.go",
+      "sha256": "a69e1beb8ac41862d2560042875a76d0bf395ea98df901c8968540b364e1d9dd"
+    },
+    {
+      "path": "cmd/demo/main.go",
+      "sha256": "19831b1527ff57b456bc4e07fa2feae3c0fbc32aadd55b629ef8fed42b5598db"
+    },
+    {
+      "path": "cmd/demo/report.go",
+      "sha256": "0ed207a4d5250e41d9c34ad086b63578fd9d3267b4f151ddb6342514d6c4c403"
+    },
+    {
+      "path": "cmd/gateway/main.go",
+      "sha256": "be0312ed6a1cba6df04ff97733fed8492c1c47a8a69320a9a0cd1ade83c7acf9"
+    },
+    {
+      "path": "go.mod",
+      "sha256": "eee19ac1cb2449eea9f12867f9aa8f829106704b49a582537ce80dee63476117"
+    },
+    {
+      "path": "internal/admission/admission.go",
+      "sha256": "7332c76ebb7df75d040afb930a73b48e9e0c63d853995414f0138421a82824e0"
+    },
+    {
+      "path": "internal/admission/admission_test.go",
+      "sha256": "e103739234a6a5df45eb9d076aaafd953c3c75181481198c0aa4135685b6348d"
+    },
+    {
+      "path": "internal/config/config.go",
+      "sha256": "319931df194f032baccce7104046ccf4ede145737caffd482204d12d3bf8eba8"
+    },
+    {
+      "path": "internal/config/config_test.go",
+      "sha256": "2992dffa987ed9c8cb69217634a16e1ddede16b0f1ca130136d28eb8f80fff89"
+    },
+    {
+      "path": "internal/gateway/gateway.go",
+      "sha256": "e8ad138e527c827c10c4c62bd3e34d382184d2fa8a5b65203640d4558cadf42c"
+    },
+    {
+      "path": "internal/gateway/limits_test.go",
+      "sha256": "0e54afbb083c1aef4918d467aebf049ae188c28b97bc281281be6386a026edbb"
+    },
+    {
+      "path": "internal/gateway/proxy_test.go",
+      "sha256": "d168f2314d6e95ab52fb697d36cd3e8a35d6b0bd8b53b48ea40007982efd1daf"
+    },
+    {
+      "path": "internal/gateway/review_test.go",
+      "sha256": "6846d7fcc39b787c39e5782e7b7f52c9a421b84e63dce432abc480046942c411"
+    },
+    {
+      "path": "internal/health/health.go",
+      "sha256": "1f54c10907c460acbc5f19841e79a75d7cbd11b8e060cde2a4191c7ba10604b7"
+    },
+    {
+      "path": "internal/health/health_test.go",
+      "sha256": "808ce0ebef106a2b2ce9d35c51430c5980fb9b38b2dd4ea88087fe07b44d7c34"
+    },
+    {
+      "path": "internal/metrics/metrics.go",
+      "sha256": "27ccbe20f6e5d385b2b279fbff496119a60cb8bca4acad85f2f0ae105dec0dd1"
+    },
+    {
+      "path": "internal/metrics/metrics_test.go",
+      "sha256": "b1c601ba1a42db5971b50d90fce647ec55f411b7c137c1691798e3ae3b7c5bc0"
+    },
+    {
+      "path": "internal/proxy/proxy.go",
+      "sha256": "a319b72178a6e5b13f6efad837e9bdd94e4beae8d1613e122373385db9b49893"
+    },
+    {
+      "path": "internal/ratelimit/ratelimit.go",
+      "sha256": "95510d1cf0724aa9a70178554bfdfccb2d598c24ad0d782477994c613eafc868"
+    },
+    {
+      "path": "internal/ratelimit/ratelimit_test.go",
+      "sha256": "2cd8113a2d23d53d357de6210f586e1e60baac4f84b89e4ad1063f98f928b3c1"
+    },
+    {
+      "path": "internal/routing/routing.go",
+      "sha256": "d73e9c41e6d4617976ca77336dc5814647fd570f4786b868afff8d39cedb4789"
+    },
+    {
+      "path": "internal/routing/routing_test.go",
+      "sha256": "1ad2c4307d698d97cb112c414b8b33c88fc65098360f299610e706d7c26451b4"
+    },
+    {
+      "path": "internal/upstreams/upstreams.go",
+      "sha256": "801ae8ebedb80d625b2718ef8a40df3e3830d215f01a1e0cc9c84ee2f7ce48d6"
+    },
+    {
+      "path": "internal/upstreams/upstreams_test.go",
+      "sha256": "57d5e77ba55f3f73d747fbabe48cbd2a53bd143700b1d9dbd5dc14fa9dd79d3b"
+    }
+  ],
+  "checks": [
+    {
+      "check": "tests",
+      "exit_code": 0,
+      "seconds": 16.94,
+      "log": "ServiceGateway_tests.log"
+    },
+    {
+      "check": "race",
+      "exit_code": 0,
+      "seconds": 22.11,
+      "log": "ServiceGateway_race.log"
+    },
+    {
+      "check": "vet",
+      "exit_code": 0,
+      "seconds": 9.05,
+      "log": "ServiceGateway_vet.log"
+    },
+    {
+      "check": "build",
+      "exit_code": 0,
+      "seconds": 8.41,
+      "log": "ServiceGateway_build.log"
+    }
+  ]
+}

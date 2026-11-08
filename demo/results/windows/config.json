@@ -1,0 +1,55 @@
+{
+  "listen": "127.0.0.1:54495",
+  "admin_listen": "127.0.0.1:54496",
+  "routes": [
+    {
+      "id": "api",
+      "prefix": "/api",
+      "backends": [
+        "a",
+        "b"
+      ]
+    }
+  ],
+  "upstreams": [
+    {
+      "id": "a",
+      "url": "http://127.0.0.1:54493",
+      "health_path": "/healthz"
+    },
+    {
+      "id": "b",
+      "url": "http://127.0.0.1:54494",
+      "health_path": "/healthz"
+    }
+  ],
+  "health": {
+    "interval": "50ms",
+    "timeout": "50ms",
+    "success_threshold": 2,
+    "failure_threshold": 2
+  },
+  "limits": {
+    "active": 4,
+    "waiting": 8,
+    "wait": "50ms",
+    "body_bytes": 1048576,
+    "max_header_bytes": 16384
+  },
+  "rate": {
+    "refill": 100000,
+    "burst": 100000,
+    "max_entries": 10000,
+    "idle_ttl": "5m0s"
+  },
+  "timeouts": {
+    "read_header": "2s",
+    "read_body": "5s",
+    "idle": "30s",
+    "connect": "1s",
+    "response_header": "250ms",
+    "request": "300ms",
+    "shutdown": "5s",
+    "max_conns_per_host": 64
+  }
+}
